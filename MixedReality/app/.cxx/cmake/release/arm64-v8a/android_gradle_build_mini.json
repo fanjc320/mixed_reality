@@ -1,0 +1,59 @@
+{
+  "buildFiles": [
+    "D:\\Temp\\Samples\\MixedReality\\app\\src\\main\\cpp\\CMakeLists.txt",
+    "D:\\Apps\\Android\\Sdk\\ndk\\21.1.6352462\\build\\cmake\\android.toolchain.cmake",
+    "D:\\Apps\\Android\\Sdk\\ndk\\21.1.6352462\\build\\cmake\\platforms.cmake",
+    "D:\\Temp\\Samples\\MixedReality\\app\\.cxx\\cmake\\release\\prefab\\arm64-v8a\\prefab\\lib\\aarch64-linux-android\\cmake\\loader\\loader-config-version.cmake",
+    "D:\\Temp\\Samples\\MixedReality\\app\\.cxx\\cmake\\release\\prefab\\arm64-v8a\\prefab\\lib\\aarch64-linux-android\\cmake\\loader\\loader-config.cmake"
+  ],
+  "cleanCommands": [
+    "D:\\Apps\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"D:\\Temp\\Samples\\MixedReality\\app\\.cxx\\cmake\\release\\arm64-v8a\" clean"
+  ],
+  "buildTargetsCommand": "D:\\Apps\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"D:\\Temp\\Samples\\MixedReality\\app\\.cxx\\cmake\\release\\arm64-v8a\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "native_app_glue-Release-arm64-v8a": {
+      "artifactName": "native_app_glue",
+      "buildCommand": "D:\\Apps\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"D:\\Temp\\Samples\\MixedReality\\app\\.cxx\\cmake\\release\\arm64-v8a\" native_app_glue",
+      "abi": "arm64-v8a",
+      "output": "D:\\Temp\\Samples\\MixedReality\\app\\.cxx\\cmake\\release\\arm64-v8a\\libnative_app_glue.a",
+      "runtimeFiles": []
+    },
+    "mixedreality-Release-arm64-v8a": {
+      "artifactName": "mixedreality",
+      "buildCommand": "D:\\Apps\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"D:\\Temp\\Samples\\MixedReality\\app\\.cxx\\cmake\\release\\arm64-v8a\" mixedreality",
+      "abi": "arm64-v8a",
+      "output": "D:\\Temp\\Samples\\MixedReality\\app\\build\\intermediates\\cmake\\release\\obj\\arm64-v8a\\libmixedreality.so",
+      "runtimeFiles": [
+        "C:\\Users\\zhout\\.gradle\\caches\\transforms-2\\files-2.1\\02e6b18bfe587facab2641065048265d\\jetified-loader-release\\prefab\\modules\\openxr_loader\\libs\\android.arm64-v8a\\libopenxr_loader.so"
+      ]
+    },
+    "qxr-thirdparty-tinyobj-Release-arm64-v8a": {
+      "artifactName": "qxr-thirdparty-tinyobj",
+      "buildCommand": "D:\\Apps\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"D:\\Temp\\Samples\\MixedReality\\app\\.cxx\\cmake\\release\\arm64-v8a\" qxr-thirdparty-tinyobj",
+      "abi": "arm64-v8a",
+      "output": "D:\\Temp\\Samples\\MixedReality\\app\\.cxx\\cmake\\release\\arm64-v8a\\libqxr-thirdparty-tinyobj.a",
+      "runtimeFiles": []
+    },
+    "qxr-common-log-Release-arm64-v8a": {
+      "artifactName": "qxr-common-log",
+      "buildCommand": "D:\\Apps\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"D:\\Temp\\Samples\\MixedReality\\app\\.cxx\\cmake\\release\\arm64-v8a\" qxr-common-log",
+      "abi": "arm64-v8a",
+      "output": "D:\\Temp\\Samples\\MixedReality\\app\\.cxx\\cmake\\release\\arm64-v8a\\libqxr-common-log.a",
+      "runtimeFiles": []
+    },
+    "qxr-app-common-Release-arm64-v8a": {
+      "artifactName": "qxr-app-common",
+      "buildCommand": "D:\\Apps\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"D:\\Temp\\Samples\\MixedReality\\app\\.cxx\\cmake\\release\\arm64-v8a\" qxr-app-common",
+      "abi": "arm64-v8a",
+      "output": "D:\\Temp\\Samples\\MixedReality\\app\\.cxx\\cmake\\release\\arm64-v8a\\libqxr-app-common.a",
+      "runtimeFiles": []
+    },
+    "qxr-common-gl-Release-arm64-v8a": {
+      "artifactName": "qxr-common-gl",
+      "buildCommand": "D:\\Apps\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"D:\\Temp\\Samples\\MixedReality\\app\\.cxx\\cmake\\release\\arm64-v8a\" qxr-common-gl",
+      "abi": "arm64-v8a",
+      "output": "D:\\Temp\\Samples\\MixedReality\\app\\.cxx\\cmake\\release\\arm64-v8a\\libqxr-common-gl.a",
+      "runtimeFiles": []
+    }
+  }
+}

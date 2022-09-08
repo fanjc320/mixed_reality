@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: D./projs/Samples/MixedReality/External/loader-release.aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/02e6b18bfe587facab2641065048265d/jetified-loader-release/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ce826cdceee37402f45b1b777f629c0c/jetified-loader-release/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ce826cdceee37402f45b1b777f629c0c/jetified-loader-release/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ce826cdceee37402f45b1b777f629c0c/jetified-loader-release/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,19 @@
+# ninja log v5
+11	785	684148991	CMakeFiles/qxr-common-gl.dir/D_/Temp/Samples/MixedReality/External/Common/GL/cpp/RenderTarget.cpp.o	9cae6ac3eecc5187
+13	787	684148991	CMakeFiles/qxr-common-gl.dir/D_/Temp/Samples/MixedReality/External/Common/GL/cpp/Shader.cpp.o	39f006a36b6a693f
+4	794	684148991	CMakeFiles/qxr-common-log.dir/D_/Temp/Samples/MixedReality/External/Common/Log/LogUtils.c.o	e58e21c7b005f791
+5	814	684148991	CMakeFiles/qxr-common-gl.dir/D_/Temp/Samples/MixedReality/External/Common/GL/cpp/KtxLoader.cpp.o	41a29c5857020f7
+0	818	684148991	CMakeFiles/native_app_glue.dir/D_/Apps/Android/Sdk/ndk/21.1.6352462/sources/android/native_app_glue/android_native_app_glue.c.o	fda16fb244685fad
+794	849	684148991	libqxr-common-log.a	f1fa7abca9b4c3ba
+2	854	684148991	CMakeFiles/qxr-app-common.dir/D_/Temp/Samples/MixedReality/External/AppCommon/cpp/AppCommon.cpp.o	ede1f17284392817
+818	871	684148991	libnative_app_glue.a	1d3f5d41fb05a52b
+871	919	684148991	libqxr-app-common.a	dcb4afccf599c25
+9	1128	684148991	CMakeFiles/qxr-common-gl.dir/D_/Temp/Samples/MixedReality/External/Common/GL/cpp/Geometry.cpp.o	59e29e12073dff95
+7	2140	684148992	CMakeFiles/mixedreality.dir/main.cpp.o	347d53ec89617582
+15	2647	684148992	CMakeFiles/qxr-thirdparty-tinyobj.dir/D_/Temp/Samples/MixedReality/External/ThirdParty/tinyobjloader/tiny_obj_loader.cc.o	788a3f768b6004fb
+2647	2701	684148992	libqxr-thirdparty-tinyobj.a	348d7841b8df0d4f
+2701	2749	684148993	libqxr-common-gl.a	f41e049852bf4187
+2749	2820	684148993	D:/Temp/Samples/MixedReality/app/build/intermediates/cmake/release/obj/arm64-v8a/libmixedreality.so	ff2145abbf3b587c
+3	1841	684157998	CMakeFiles/mixedreality.dir/main.cpp.o	347d53ec89617582
+1841	1924	684157998	D:/Temp/Samples/MixedReality/app/build/intermediates/cmake/release/obj/arm64-v8a/libmixedreality.so	ff2145abbf3b587c
+1	45	0	clean	a65829aba279367b
