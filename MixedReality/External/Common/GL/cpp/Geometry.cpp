@@ -72,7 +72,7 @@ namespace QtiGL
         mIndexCount = nIndices;
     }
 
-    void Geometry::Update(void const* pVertexData, int32_t const bufferSize, int32_t const nVertices)
+    /*void Geometry::Update(void const* pVertexData, int32_t const bufferSize, int32_t const nVertices)
     {
         glBindBuffer(GL_ARRAY_BUFFER, mVbId);
         glBufferData(GL_ARRAY_BUFFER, bufferSize, pVertexData, GL_STATIC_DRAW);
@@ -87,7 +87,7 @@ namespace QtiGL
         glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, mIbId );
         glBufferData( GL_ELEMENT_ARRAY_BUFFER, nIndices * sizeof(uint32_t), pIndices, GL_STATIC_DRAW);
         glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, 0);
-    }
+    }*/
 
     void Geometry::Destroy()
     {
@@ -110,7 +110,7 @@ namespace QtiGL
         glBindVertexArray( 0 );
     }
 
-    void Geometry::Submit(ProgramAttribute const* pAttribs, int32_t const nAttribs)
+   /* void Geometry::Submit(ProgramAttribute const* pAttribs, int32_t const nAttribs)
     {
         glBindBuffer(GL_ARRAY_BUFFER, mVbId);
 
@@ -141,9 +141,9 @@ namespace QtiGL
         glBindVertexArray( mVaoId );
         glDrawElementsInstanced(GL_TRIANGLES, mIndexCount, GL_UNSIGNED_INT, nullptr, instanceCount);
         glBindVertexArray( 0 );
-    }
+    }*/
 
-    bool Geometry::CreateFromObjFile(std::string const& objFilePath, Geometry** pOutGeometry, int32_t& outNumGeometry,
+   /* bool Geometry::CreateFromObjFile(std::string const& objFilePath, Geometry** pOutGeometry, int32_t& outNumGeometry,
             bool normalize, std::vector<std::string>* outDiffusePaths)
     {
         std::vector<tinyobj::shape_t>       shapes;
@@ -279,6 +279,6 @@ namespace QtiGL
         outNumGeometry = shapes.size();
 
         return true;
-    }
+    }*/
 
 }
