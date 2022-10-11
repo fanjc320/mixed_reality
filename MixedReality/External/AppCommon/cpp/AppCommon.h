@@ -12,7 +12,7 @@
 #include <unistd.h>
 #include <vector>
 #include <jni.h>
-
+#include <array>
 #include <EGL/egl.h>
 #include <GLES3/gl3.h>
 #include <sys/system_properties.h>
@@ -59,6 +59,22 @@ struct base_saved_state {
     XrSession xrSession = XR_NULL_HANDLE;
     XrSpace xrLocalSpace = XR_NULL_HANDLE;
     XrSpace xrViewSpace = XR_NULL_HANDLE;
+
+    XrActionSet actionSet{XR_NULL_HANDLE};
+    XrAction grabAction{XR_NULL_HANDLE};
+    XrAction poseAction{XR_NULL_HANDLE};
+    XrAction vibrateAction{XR_NULL_HANDLE};
+    XrAction quitAction{XR_NULL_HANDLE};
+    XrAction headAction{XR_NULL_HANDLE};
+
+    std::array<XrPath, 2> handSubactionPath;
+    std::array<XrSpace, 2> handSpace;
+    XrPath headPath;
+    XrSpace headSpace;
+    std::array<float, 2> handScale = {{1.0f, 1.0f}};
+    std::array<XrBool32, 2> handActive;
+    XrPosef handPose[2];
+
     uint32_t viewCount = 0;
     XrViewConfigurationView viewConfigs[2];
     std::vector<XrView> m_views;
@@ -162,6 +178,10 @@ void app_get_system_prop(struct base_engine *engine);
 void app_enum_view_configuration(struct base_engine *engine);
 
 void app_create_session(XrSessionCreateInfo *info, struct base_engine *engine);
+
+void app_create_action(struct base_engine *engine);
+
+void app_locate_space(struct base_engine *engine, XrTime pTime);
 
 void app_create_space(XrReferenceSpaceCreateInfo *info,
                       struct base_engine *engine);

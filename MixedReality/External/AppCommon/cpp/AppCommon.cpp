@@ -722,6 +722,169 @@ void app_create_session(XrSessionCreateInfo *info, struct base_engine *engine)
     }
 }
 
+void app_create_action(struct base_engine *engine)
+{
+    XrActionSetCreateInfo actionSetInfo{XR_TYPE_ACTION_SET_CREATE_INFO};
+    strcpy(actionSetInfo.actionSetName, "gameplay");
+    strcpy(actionSetInfo.localizedActionSetName, "Gameplay");
+    actionSetInfo.priority = 0;
+    XrResult res =  xrCreateActionSet(engine->state.xrInstance, &actionSetInfo, &engine->state.actionSet);
+    LOGE(LOG_TAG, "LocateSpace xrCreateActionSet state %d = ", res);
+    xrStringToPath(engine->state.xrInstance, "/user/hand/left", &engine->state.handSubactionPath[0]);
+    xrStringToPath(engine->state.xrInstance, "/user/hand/right", &engine->state.handSubactionPath[1]);
+
+
+
+// Create actions.
+    {
+        // Create an input action for grabbing objects with the left and right hands.
+        XrActionCreateInfo actionInfo{XR_TYPE_ACTION_CREATE_INFO};
+        actionInfo.actionType = XR_ACTION_TYPE_FLOAT_INPUT;
+        strcpy(actionInfo.actionName, "grab_object");
+        strcpy(actionInfo.localizedActionName, "Grab Object");
+        actionInfo.countSubactionPaths = uint32_t(engine->state.handSubactionPath.size());
+        actionInfo.subactionPaths = engine->state.handSubactionPath.data();
+        xrCreateAction(engine->state.actionSet, &actionInfo, &engine->state.grabAction);
+
+        // Create an input action getting the left and right hand poses.
+        actionInfo.actionType = XR_ACTION_TYPE_POSE_INPUT;
+        strcpy(actionInfo.actionName, "hand_pose");
+        strcpy(actionInfo.localizedActionName, "Hand Pose");
+        actionInfo.countSubactionPaths = uint32_t(engine->state.handSubactionPath.size());
+        actionInfo.subactionPaths = engine->state.handSubactionPath.data();
+        xrCreateAction(engine->state.actionSet, &actionInfo, &engine->state.poseAction);
+
+        // Create output actions for vibrating the left and right controller.
+        actionInfo.actionType = XR_ACTION_TYPE_VIBRATION_OUTPUT;
+        strcpy(actionInfo.actionName, "vibrate_hand");
+        strcpy(actionInfo.localizedActionName, "Vibrate Hand");
+        actionInfo.countSubactionPaths = uint32_t(engine->state.handSubactionPath.size());
+        actionInfo.subactionPaths = engine->state.handSubactionPath.data();
+        xrCreateAction(engine->state.actionSet, &actionInfo, &engine->state.vibrateAction);
+
+        // Create input actions for quitting the session using the left and right controller.
+        // Since it doesn't matter which hand did this, we do not specify subaction paths for it.
+        // We will just suggest bindings for both hands, where possible.
+        actionInfo.actionType = XR_ACTION_TYPE_BOOLEAN_INPUT;
+        strcpy(actionInfo.actionName, "quit_session");
+        strcpy(actionInfo.localizedActionName, "Quit Session");
+        actionInfo.countSubactionPaths = 0;
+        actionInfo.subactionPaths = nullptr;
+        xrCreateAction(engine->state.actionSet, &actionInfo, &engine->state.quitAction);
+    }
+
+
+    {
+        std::array<XrPath, 2> selectPath;
+        std::array<XrPath, 2> squeezeValuePath;
+        std::array<XrPath, 2> squeezeForcePath;
+        std::array<XrPath, 2> squeezeClickPath;
+        std::array<XrPath, 2> posePath;
+        std::array<XrPath, 2> hapticPath;
+        std::array<XrPath, 2> menuClickPath;
+        std::array<XrPath, 2> bClickPath;
+        std::array<XrPath, 2> triggerValuePath;
+        xrStringToPath(engine->state.xrInstance, "/user/hand/left/input/select/click", &selectPath[0]);
+        xrStringToPath(engine->state.xrInstance, "/user/hand/right/input/select/click", &selectPath[1]);
+        xrStringToPath(engine->state.xrInstance, "/user/hand/left/input/squeeze/value", &squeezeValuePath[0]);
+        xrStringToPath(engine->state.xrInstance, "/user/hand/right/input/squeeze/value", &squeezeValuePath[1]);
+        xrStringToPath(engine->state.xrInstance, "/user/hand/left/input/squeeze/force", &squeezeForcePath[0]);
+        xrStringToPath(engine->state.xrInstance, "/user/hand/right/input/squeeze/force", &squeezeForcePath[1]);
+        xrStringToPath(engine->state.xrInstance, "/user/hand/left/input/squeeze/click", &squeezeClickPath[0]);
+        xrStringToPath(engine->state.xrInstance, "/user/hand/right/input/squeeze/click", &squeezeClickPath[1]);
+        xrStringToPath(engine->state.xrInstance, "/user/hand/left/input/grip/pose", &posePath[0]);
+        xrStringToPath(engine->state.xrInstance, "/user/hand/right/input/grip/pose", &posePath[1]);
+        xrStringToPath(engine->state.xrInstance, "/user/hand/left/output/haptic", &hapticPath[0]);
+        xrStringToPath(engine->state.xrInstance, "/user/hand/right/output/haptic", &hapticPath[1]);
+        xrStringToPath(engine->state.xrInstance, "/user/hand/left/input/menu/click", &menuClickPath[0]);
+        xrStringToPath(engine->state.xrInstance, "/user/hand/right/input/menu/click", &menuClickPath[1]);
+        xrStringToPath(engine->state.xrInstance, "/user/hand/left/input/b/click", &bClickPath[0]);
+        xrStringToPath(engine->state.xrInstance, "/user/hand/right/input/b/click", &bClickPath[1]);
+        xrStringToPath(engine->state.xrInstance, "/user/hand/left/input/trigger/value", &triggerValuePath[0]);
+        xrStringToPath(engine->state.xrInstance, "/user/hand/right/input/trigger/value", &triggerValuePath[1]);
+        xrStringToPath(engine->state.xrInstance, "/user/head", &engine->state.headPath);
+
+        XrPath oculusTouchInteractionProfilePath;
+
+        xrStringToPath(engine->state.xrInstance, "/interaction_profiles/oculus/touch_controller", &oculusTouchInteractionProfilePath);
+        std::vector<XrActionSuggestedBinding> bindings{{{engine->state.grabAction, squeezeValuePath[0]},
+                                                        {engine->state.grabAction, squeezeValuePath[1]},
+                                                        {engine->state.poseAction, posePath[0]},
+                                                        {engine->state.poseAction, posePath[1]},
+                                                        {engine->state.quitAction, menuClickPath[0]},
+                                                        {engine->state.vibrateAction, hapticPath[0]},
+                                                        {engine->state.vibrateAction, hapticPath[1]}}};
+        XrInteractionProfileSuggestedBinding suggestedBindings{XR_TYPE_INTERACTION_PROFILE_SUGGESTED_BINDING};
+        suggestedBindings.interactionProfile = oculusTouchInteractionProfilePath;
+        suggestedBindings.suggestedBindings = bindings.data();
+        suggestedBindings.countSuggestedBindings = (uint32_t)bindings.size();
+        XrResult res1 =  xrSuggestInteractionProfileBindings(engine->state.xrInstance, &suggestedBindings);
+        LOGE(LOG_TAG, "LocateSpace xrSuggestInteractionProfileBindings state  = %d" , res1);
+
+        XrActionSpaceCreateInfo actionSpaceInfo{XR_TYPE_ACTION_SPACE_CREATE_INFO};
+        actionSpaceInfo.action = engine->state.poseAction;
+        actionSpaceInfo.poseInActionSpace.orientation.w = 1.f;
+        actionSpaceInfo.subactionPath = engine->state.handSubactionPath[0];
+        res1 =  xrCreateActionSpace(engine->state.xrSession, &actionSpaceInfo, &engine->state.handSpace[0]);
+        LOGE(LOG_TAG, "LocateSpace xrCreateActionSpace1 state  = %d" , res1);
+
+        actionSpaceInfo.subactionPath = engine->state.handSubactionPath[1];
+        res1 = xrCreateActionSpace(engine->state.xrSession, &actionSpaceInfo, &engine->state.handSpace[1]);
+        LOGE(LOG_TAG, "LocateSpace xrCreateActionSpace2 state  = %d" , res1);
+
+        XrActionSpaceCreateInfo actionSpaceInfo1{XR_TYPE_ACTION_SPACE_CREATE_INFO};
+        actionSpaceInfo1.action = engine->state.headAction;
+        actionSpaceInfo1.poseInActionSpace.orientation.w = 1.f;
+        actionSpaceInfo1.subactionPath = engine->state.headPath;
+        res1 = xrCreateActionSpace(engine->state.xrSession, &actionSpaceInfo1, &engine->state.headSpace);
+        LOGE(LOG_TAG, "LocateSpace xrCreateActionSpace3 state  = %d ", res1);
+
+        XrSessionActionSetsAttachInfo attachInfo{XR_TYPE_SESSION_ACTION_SETS_ATTACH_INFO};
+        attachInfo.countActionSets = 1;
+        attachInfo.actionSets = &engine->state.actionSet;
+        res1 =  xrAttachSessionActionSets(engine->state.xrSession, &attachInfo);
+        LOGE(LOG_TAG, "LocateSpace xrAttachSessionActionSets state %d = ", res1);
+    }
+}
+
+void app_locate_space(struct base_engine *engine, XrTime pTime)
+{
+    LOGE(LOG_TAG, "app_locate_space 1");
+    XrActiveActionSet actionSet{};
+    actionSet.actionSet = engine->state.actionSet;
+    actionSet.subactionPath = XR_NULL_PATH;
+
+    XrActionsSyncInfo syncInfo{XR_TYPE_ACTIONS_SYNC_INFO};
+    syncInfo.countActiveActionSets = 1;
+    syncInfo.activeActionSets = &actionSet;
+    XrResult result = xrSyncActions(engine->state.xrSession, &syncInfo);
+    LOGE(LOG_TAG, "LocateSpace xrSyncActions  = %d", result);
+    //使用"/user/hand/left"和"/user/hand/right"传入xrGetActionStatePose中
+    for (uint32_t hand = 0; hand < 2; hand++) {
+        XrActionStateGetInfo getInfo{XR_TYPE_ACTION_STATE_GET_INFO};
+        getInfo.subactionPath = engine->state.handSubactionPath[hand];
+        //获取handActive值
+        XrActionStatePose poseState{XR_TYPE_ACTION_STATE_POSE};
+        getInfo.action = engine->state.poseAction;
+        xrGetActionStatePose(engine->state.xrSession, &getInfo, &poseState);
+        XrSpaceLocation spaceLocation = { XR_TYPE_SPACE_LOCATION };
+        //手部定位，获取handPose
+        XrResult res = xrLocateSpace(engine->state.handSpace[hand], engine->state.xrLocalSpace, pTime, &spaceLocation);
+
+        LOGE(LOG_TAG, "LocateSpace state = %d ", res);
+
+        if (XR_UNQUALIFIED_SUCCESS(res) &&
+            (spaceLocation.locationFlags & XR_SPACE_LOCATION_POSITION_VALID_BIT) != 0 &&
+            (spaceLocation.locationFlags & XR_SPACE_LOCATION_ORIENTATION_VALID_BIT) != 0) {
+            LOGE(LOG_TAG, "LocateSpace success");
+            engine->state.handPose[hand] = spaceLocation.pose;
+        }
+    }
+
+    LOGE(LOG_TAG, "LocateSpace handPose left x = %f y = %f z = %f right x = %f y = %f z = %f ", engine->state.handPose[0].position.x, engine->state.handPose[0].position.y, engine->state.handPose[0].position.z,
+         engine->state.handPose[1].position.x, engine->state.handPose[1].position.y, engine->state.handPose[1].position.z);
+}
+
 void app_create_space(XrReferenceSpaceCreateInfo *info,
                       struct base_engine *engine)
 {
